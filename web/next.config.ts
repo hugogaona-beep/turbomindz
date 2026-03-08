@@ -34,9 +34,7 @@ const nextConfig: NextConfig = {
     ]
   },
 
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
 
   webpack(config) {
     // Fix for wagmi/viem ESM modules

@@ -96,7 +96,6 @@ model User {
   affiliate       Affiliate?
   payloads        NFTServicePayload[]
   notifications   Notification[]
-  referrals       Referral[]       @relation("ReferralUser")
   referredUsers   Referral[]       @relation("ReferredUser")
   offers          MemberOffer[]
 
@@ -298,7 +297,6 @@ model Referral {
 
   affiliate      Affiliate @relation(fields: [affiliateId], references: [id])
   referredUser   User      @relation("ReferredUser", fields: [referredUserId], references: [id])
-  referringUser  User?     @relation("ReferralUser", fields: [affiliateId], references: [id])
 
   @@map("referrals")
 }
