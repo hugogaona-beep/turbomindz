@@ -1,0 +1,68 @@
+--- START CSV PART 1 ---
+Phase,Week,Task_ID,Task_Name,Details,Priority,Time,Notes
+Phase 1: Foundation,Week 1,1.01,Finalize project name Turbomindz,Confirm final brand name for all materials domains and social accounts,Critical,0.5h,Must complete before any other branding work
+Phase 1: Foundation,Week 1,1.02,Register domain turbomindz.xyz,Purchase primary domain and configure DNS settings,Critical,0.5h,Consider also registering .com and .io variations
+Phase 1: Foundation,Week 1,1.03,Set up project folder structure,Create organized file system: /brand /art /docs /marketing /legal,Important,0.5h,Use Google Drive or Dropbox for team access
+Phase 1: Foundation,Week 1,1.04,Create MetaMask wallet for treasury,Install MetaMask and create new wallet for all project funds,Critical,0.5h,Use fresh browser profile for security
+Phase 1: Foundation,Week 1,1.05,Write down seed phrase ON PAPER,Record 12-word recovery phrase physically NEVER digitally,Critical,0.25h,Store in fireproof safe or safety deposit box
+Phase 1: Foundation,Week 1,1.06,Store seed phrase securely,Place written seed phrase in secure location away from computer,Critical,0.25h,Consider splitting phrase between two locations
+Phase 1: Foundation,Week 1,1.07,Add Polygon network to MetaMask,Configure wallet: RPC URL polygon-rpc.com Chain ID 137 Symbol MATIC,Critical,0.25h,Test with small transaction first
+Phase 1: Foundation,Week 1,1.08,Fund wallet with initial MATIC,Purchase MATIC via Coinbase/exchange and transfer to treasury wallet (~$50),Important,0.5h,Keep receipt for accounting
+Phase 1: Foundation,Week 1,1.09,Research public domain quote sources,Identify reliable sources: Project Gutenberg Wikiquote Stanford Encyclopedia,Critical,2h,Focus on pre-1925 authors for US public domain
+Phase 1: Foundation,Week 1,1.10,Compile 100+ philosophical quotes,Create master spreadsheet with quote attribution source and theme category,Critical,3h,Aim for 12+ quotes per theme category
+Phase 1: Foundation,Week 1,1.11,Organize quotes by theme (9 categories),Sort into: Classical Enlightenment Existentialism Mysticism Eastern Science Poetry Civic Psychology,Critical,2h,Ensure balanced distribution across themes
+Phase 1: Foundation,Week 1,1.12,Verify public domain status of each quote,Confirm copyright status: 70+ years since author death in most jurisdictions,Critical,1h,Document verification for legal protection
+Phase 1: Foundation,Week 1,1.13,Draft Terms of Service,Create legal terms covering platform use user responsibilities and limitations,Important,1h,Use template from similar NFT projects as starting point
+Phase 1: Foundation,Week 1,1.14,Draft Privacy Policy,Create data handling policy covering wallet addresses Discord data and cookies,Important,0.5h,Ensure GDPR compliance if serving EU users
+Phase 1: Foundation,Week 1,1.15,Review legal disclaimers,Ensure liability protections: not custodian not guarantor venue only,Important,0.5h,Have legal professional review if budget allows
+Phase 1: Foundation,Week 1,1.16,Create project timeline document,Draft high-level 32-week schedule with key milestones and dependencies,Important,0.5h,Use Gantt chart format for visualization
+Phase 1: Foundation,Week 1,1.17,Set up project management system,Configure Notion/Trello/Asana with this task list and assign due dates,Nice to have,0.5h,Include team members when recruited
+Phase 1: Foundation,Week 2,2.01,Define brand personality/voice,Document tone: intelligent but accessible philosophical but practical warm but professional,Important,1h,Create voice guidelines document with examples
+Phase 1: Foundation,Week 2,2.02,Select primary color: Deep Teal #1A3A3A,Choose and document primary brand color for backgrounds and headers,Critical,0.25h,Test contrast ratios for accessibility
+Phase 1: Foundation,Week 2,2.03,Select secondary color: Gold #C9A227,Choose and document accent color for CTAs highlights and emphasis,Critical,0.25h,Use sparingly for maximum impact
+Phase 1: Foundation,Week 2,2.04,Select tertiary color: Cream #F5F1E6,Choose and document background/text color for light mode and cards,Critical,0.25h,Ensure readability on all backgrounds
+Phase 1: Foundation,Week 2,2.05,Select heading font (Modern Serif),Choose Playfair Display or similar elegant serif for H1 H2 accent text,Critical,0.5h,Verify Google Fonts availability
+Phase 1: Foundation,Week 2,2.06,Select body font (Clean Sans-Serif),Choose Inter or similar readable sans-serif for paragraphs and UI elements,Critical,0.5h,Test readability at small sizes
+Phase 1: Foundation,Week 2,2.07,Create logo concept sketches (3-5),Draft multiple logo directions: brain/canvas hybrid philosophical symbols,Critical,2h,Focus on scalability and simplicity
+Phase 1: Foundation,Week 2,2.08,Select final logo concept,Review sketches and choose winning direction based on versatility and meaning,Critical,0.5h,Get feedback from 2-3 trusted sources
+Phase 1: Foundation,Week 2,2.09,Create logo in high resolution,Finalize chosen concept at 2000px+ in PNG SVG and vector formats,Critical,1h,Export in multiple color variations
+Phase 1: Foundation,Week 2,2.10,Create logo variations (light/dark bg),Create versions optimized for teal background white background and dark mode,Important,0.5h,Include monochrome version
+Phase 1: Foundation,Week 2,2.11,Create favicon (16x16 32x32),Design simplified logo version for browser tabs and bookmarks,Important,0.25h,Test visibility at small sizes
+Phase 1: Foundation,Week 2,2.12,Define visual style: Renaissance Digital,Document aesthetic: classical artistic elements + modern digital polish + museum quality,Critical,1h,Create mood board with reference images
+Phase 1: Foundation,Week 2,2.13,Write brand guidelines document,Comprehensive style guide covering logo usage colors typography voice and imagery,Important,2h,Include dos and donts with examples
+Phase 1: Foundation,Week 2,2.14,Create brand asset folder,Organize all brand files in shared folder with clear naming conventions,Important,0.5h,Structure: /logos /colors /fonts /templates
+Phase 1: Foundation,Week 2,2.15,Write project tagline,Finalize Create. Connect. Trade Fair. or alternative,Important,0.5h,Test with target audience for resonance
+Phase 1: Foundation,Week 2,2.16,Write manifesto (500 words),Mission statement and vision: why we exist what we believe what we're building,Important,2h,Use for website About section and press kit
+Phase 1: Foundation,Week 2,2.17,Create mood board,Visual reference collection: Renaissance paintings modern digital art museum aesthetics,Nice to have,1h,Use Pinterest or Figma for collaboration
+Phase 1: Foundation,Week 3,3.01,Set up Midjourney/DALL-E account,Create account with paid subscription for commercial use rights,Critical,0.5h,Midjourney recommended for quality; review license terms
+Phase 1: Foundation,Week 3,3.02,Research effective prompt techniques,Study prompt engineering: style modifiers lighting terms composition keywords,Important,1h,Save best examples for reference
+Phase 1: Foundation,Week 3,3.03,Define art style description,Document Marble Renaissance Digital: classical aesthetics + modern polish + marble textures,Critical,1h,Write detailed style guide for consistency
+Phase 1: Foundation,Week 3,3.04,Create base prompt template,Master template incorporating style lighting and resolution parameters,Critical,1h,Include placeholder for [concept] and [theme-color]
+Phase 1: Foundation,Week 3,3.05,Define theme color mapping (9 themes),Assign specific hex colors to each philosophical theme for visual consistency,Critical,1h,Classical=#1A237E Enlightenment=#C9A227 Existentialism=#4A148C etc.
+Phase 1: Foundation,Week 3,3.06,Generate test images (10),Test prompt template effectiveness with sample concepts from each theme,Critical,2h,Document what works and what doesn't
+Phase 1: Foundation,Week 3,3.07,Review and refine prompts,Adjust parameters based on test results: aspect ratio style modifiers detail level,Important,1h,Note specific tweaks for each theme
+Phase 1: Foundation,Week 3,3.08,Generate artworks #1-10,First batch of final images using refined prompts and quotes 1-10,Critical,2h,Generate multiple variations and select best
+Phase 1: Foundation,Week 3,3.09,Generate artworks #11-20,Second batch using quotes 11-20 maintaining style consistency,Critical,2h,Compare against batch 1 for cohesion
+Phase 1: Foundation,Week 3,3.10,Generate artworks #21-25,Third batch using quotes 21-25,Critical,1h,Check for variety within consistent style
+Phase 1: Foundation,Week 3,3.11,Quality review batch 1 (25 pieces),Assess visual quality style consistency theme appropriateness and resolution,Critical,1h,Create scoring rubric for objectivity
+Phase 1: Foundation,Week 3,3.12,Re-generate any failed pieces,Replace substandard images that don't meet quality threshold,Important,1h,Document issues for future prompt refinement
+Phase 1: Foundation,Week 3,3.13,Select best 25 from batch 1,Final selection process ensuring diversity and quality,Critical,0.5h,Consider theme distribution balance
+Phase 1: Foundation,Week 3,3.14,Name files consistently,Rename to turbomindz_001.png through turbomindz_025.png format,Important,0.5h,Include theme code in filename if helpful
+Phase 1: Foundation,Week 3,3.15,Create generation log,Document prompt + output for each piece: quote theme prompt used variations tried,Nice to have,0.5h,Valuable for future drops and troubleshooting
+Phase 1: Foundation,Week 4,4.01,Generate artworks #26-35,Fourth batch using quotes 26-35 maintaining established style,Critical,2h,Cross-reference against first 25 for consistency
+Phase 1: Foundation,Week 4,4.02,Generate artworks #36-45,Fifth batch using quotes 36-45,Critical,2h,Ensure all 9 themes represented
+Phase 1: Foundation,Week 4,4.03,Generate artworks #46-50,Final batch completing the collection,Critical,1h,Select strongest quotes for final pieces
+Phase 1: Foundation,Week 4,4.04,Quality review batch 2 (25 pieces),Assess visual quality and compare against batch 1 standards,Critical,1h,Use same scoring rubric as Week 3
+Phase 1: Foundation,Week 4,4.05,Re-generate any failed pieces,Replace substandard images from batch 2,Important,1h,Final opportunity for quality control
+Phase 1: Foundation,Week 4,4.06,Final selection: 50 pieces total,Complete collection selection ensuring cohesion and variety,Critical,1h,Verify balanced theme distribution
+Phase 1: Foundation,Week 4,4.07,Resize all images to consistent dimensions,Standardize to 2000x3000px (or chosen aspect ratio) at 300dpi,Important,1h,Use batch processing tool for efficiency
+Phase 1: Foundation,Week 4,4.08,Create Pinata account,Sign up for IPFS hosting service at pinata.cloud,Critical,0.25h,Free tier provides 1GB storage
+Phase 1: Foundation,Week 4,4.09,Create API key,Generate API key for programmatic uploads if needed,Critical,0.25h,Store securely and don't commit to public repos
+Phase 1: Foundation,Week 4,4.10,Create folder structure on Pinata,Organize: /turbomindz/images and /turbomindz/metadata,Important,0.25h,Clear structure simplifies management
+Phase 1: Foundation,Week 4,4.11,Upload all 50 images to IPFS,Upload and pin all image files to decentralized storage,Critical,2h,Upload in batches to monitor progress
+Phase 1: Foundation,Week 4,4.12,Record all image CIDs,Document Content Identifiers for each image in spreadsheet,Critical,0.5h,Critical for metadata creation
+Phase 1: Foundation,Week 4,4.13,Create metadata JSON template,Design standard structure with name description image and attributes,Critical,1h,Include Theme attribute for filtering
+Phase 1: Foundation,Week 4,4.14,Create metadata for all 50 NFTs,Generate individual JSON files with correct CIDs and theme tags,Critical,2h,Automate with script if possible
+Phase 1: Foundation,Week 4,4.15,Upload metadata folder to IPFS,Pin all metadata JSON files,Critical,1h,Note base URI for OpenSea
+Phase 1: Foundation,Week 4,4.16,Verify all IPFS links work,Test accessibility of random sample of images and metadata,Critical,0.5h,Use IPFS gateway to verify public access
+--- END CSV PART 1 ---
