@@ -18,7 +18,7 @@ const NFT_GATED_ROUTES = [
   '/dashboard/perks',
 ]
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   // Check if route requires auth
