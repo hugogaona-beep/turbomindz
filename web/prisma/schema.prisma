@@ -1,0 +1,417 @@
+// TURBOMINDZ — Prisma Schema
+// Database: PostgreSQL via Supabase
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────
+
+enum UserRole {
+  VISITOR
+  MEMBER
+  AFFILIATE
+  ADMIN
+}
+
+enum ListingType {
+  NFT_SALE
+  SERVICE
+  BUSINESS_OFFER
+  COLLABORATION
+}
+
+enum ListingStatus {
+  ACTIVE
+  SOLD
+  EXPIRED
+  CANCELLED
+}
+
+enum ServiceType {
+  LEGAL_CONSULTATION
+  BUSINESS_COACHING
+  MARKETING
+  DESIGN
+  DEVELOPMENT
+  FINANCE
+  NETWORKING
+  OTHER
+}
+
+enum DropStatus {
+  UPCOMING
+  LIVE
+  SOLD_OUT
+  ARCHIVED
+}
+
+enum AffiliateStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+enum PayoutStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+// ─────────────────────────────────────────
+// USER
+// ─────────────────────────────────────────
+
+model User {
+  id              String    @id @default(cuid())
+  walletAddress   String    @unique @map("wallet_address")
+  email           String?   @unique
+  username        String?   @unique
+  avatar          String?
+  discordId       String?   @unique @map("discord_id")
+  discordUsername String?   @map("discord_username")
+  role            UserRole  @default(MEMBER)
+  referralCode    String    @unique @map("referral_code") @default(cuid())
+  referredBy      String?   @map("referred_by")
+  joinDate        DateTime  @default(now()) @map("join_date")
+  lastSeen        DateTime  @default(now()) @map("last_seen")
+  bio             String?
+  twitterHandle   String?   @map("twitter_handle")
+  isVerified      Boolean   @default(false) @map("is_verified")
+
+  // Relations
+  listings        Listing[]
+  posts           DiscussionPost[]
+  sentMessages    DirectMessage[]  @relation("SentMessages")
+  receivedMessages DirectMessage[] @relation("ReceivedMessages")
+  affiliate       Affiliate?
+  payloads        NFTServicePayload[]
+  notifications   Notification[]
+  referrals       Referral[]       @relation("ReferralUser")
+  referredUsers   Referral[]       @relation("ReferredUser")
+  offers          MemberOffer[]
+
+  @@map("users")
+}
+
+// ─────────────────────────────────────────
+// NFT
+// ─────────────────────────────────────────
+
+model NFT {
+  id             String    @id @default(cuid())
+  tokenId        Int       @unique @map("token_id")
+  ownerWallet    String    @map("owner_wallet")
+  imageUrl       String    @map("image_url")
+  ipfsHash       String    @map("ipfs_hash")
+  quoteText      String    @map("quote_text")
+  philosopherName String   @map("philosopher_name")
+  philosopherEra  String?  @map("philosopher_era")
+  artStyle       String    @map("art_style")
+  series         Int       @default(1)
+  background     String?
+  rarity         String    @default("COMMON")
+  openSeaUrl     String    @map("opensea_url")
+  mintDate       DateTime? @map("mint_date")
+  lastSalePrice  Float?    @map("last_sale_price")
+  floorPrice     Float?    @map("floor_price")
+  viewCount      Int       @default(0) @map("view_count")
+
+  // Relations
+  payloads       NFTServicePayload[]
+  listings       Listing[]
+  traits         NFTTrait[]
+
+  @@map("nfts")
+}
+
+model NFTTrait {
+  id         String @id @default(cuid())
+  nftId      String @map("nft_id")
+  traitType  String @map("trait_type")
+  value      String
+  rarity     Float  // percentage 0-100
+
+  nft        NFT    @relation(fields: [nftId], references: [id], onDelete: Cascade)
+
+  @@map("nft_traits")
+}
+
+// ─────────────────────────────────────────
+// NFT SERVICE PAYLOAD
+// ─────────────────────────────────────────
+
+model NFTServicePayload {
+  id             String      @id @default(cuid())
+  nftTokenId     Int         @map("nft_token_id")
+  loadedByWallet String      @map("loaded_by_wallet")
+  serviceType    ServiceType @map("service_type")
+  title          String
+  description    String
+  provider       String
+  providerUrl    String?     @map("provider_url")
+  valueUsd       Float?      @map("value_usd")
+  expiryDate     DateTime?   @map("expiry_date")
+  claimedBy      String?     @map("claimed_by")
+  claimedAt      DateTime?   @map("claimed_at")
+  isActive       Boolean     @default(true) @map("is_active")
+  createdAt      DateTime    @default(now()) @map("created_at")
+
+  nft            NFT         @relation(fields: [nftTokenId], references: [tokenId])
+  loader         User        @relation(fields: [loadedByWallet], references: [walletAddress])
+
+  @@map("nft_service_payloads")
+}
+
+// ─────────────────────────────────────────
+// LISTING
+// ─────────────────────────────────────────
+
+model Listing {
+  id            String        @id @default(cuid())
+  sellerWallet  String        @map("seller_wallet")
+  nftTokenId    Int?          @map("nft_token_id")
+  listingType   ListingType   @map("listing_type")
+  title         String
+  description   String
+  priceUsd      Float?        @map("price_usd")
+  priceEth      Float?        @map("price_eth")
+  status        ListingStatus @default(ACTIVE)
+  images        String[]
+  tags          String[]
+  contactEmail  String?       @map("contact_email")
+  externalUrl   String?       @map("external_url")
+  viewCount     Int           @default(0) @map("view_count")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  expiresAt     DateTime?     @map("expires_at")
+
+  seller        User          @relation(fields: [sellerWallet], references: [walletAddress])
+  nft           NFT?          @relation(fields: [nftTokenId], references: [tokenId])
+
+  @@map("listings")
+}
+
+// ─────────────────────────────────────────
+// COMMUNITY
+// ─────────────────────────────────────────
+
+model DiscussionRoom {
+  id              String  @id @default(cuid())
+  slug            String  @unique
+  name            String
+  description     String?
+  discordChannelId String? @map("discord_channel_id")
+  category        String  @default("GENERAL")
+  isGated         Boolean @default(true) @map("is_gated")
+  requiredNFTs    Int     @default(1) @map("required_nfts")
+  memberCount     Int     @default(0) @map("member_count")
+  iconEmoji       String? @map("icon_emoji")
+  order           Int     @default(0)
+
+  posts           DiscussionPost[]
+
+  @@map("discussion_rooms")
+}
+
+model DiscussionPost {
+  id              String    @id @default(cuid())
+  roomId          String    @map("room_id")
+  authorWallet    String    @map("author_wallet")
+  content         String
+  mediaUrls       String[]  @map("media_urls")
+  parentPostId    String?   @map("parent_post_id")
+  likes           Int       @default(0)
+  discordMessageId String?  @map("discord_message_id")
+  isPinned        Boolean   @default(false) @map("is_pinned")
+  isDeleted       Boolean   @default(false) @map("is_deleted")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  room            DiscussionRoom   @relation(fields: [roomId], references: [id])
+  author          User             @relation(fields: [authorWallet], references: [walletAddress])
+  parent          DiscussionPost?  @relation("Replies", fields: [parentPostId], references: [id])
+  replies         DiscussionPost[] @relation("Replies")
+
+  @@map("discussion_posts")
+}
+
+model DirectMessage {
+  id           String   @id @default(cuid())
+  fromWallet   String   @map("from_wallet")
+  toWallet     String   @map("to_wallet")
+  content      String
+  isRead       Boolean  @default(false) @map("is_read")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  from         User     @relation("SentMessages",     fields: [fromWallet], references: [walletAddress])
+  to           User     @relation("ReceivedMessages", fields: [toWallet],   references: [walletAddress])
+
+  @@map("direct_messages")
+}
+
+// ─────────────────────────────────────────
+// AFFILIATE
+// ─────────────────────────────────────────
+
+model Affiliate {
+  id              String          @id @default(cuid())
+  userId          String          @unique @map("user_id")
+  referralCode    String          @unique @map("referral_code")
+  commissionRate  Float           @default(0.10) @map("commission_rate")
+  totalReferrals  Int             @default(0) @map("total_referrals")
+  totalEarnedUsd  Float           @default(0) @map("total_earned_usd")
+  pendingUsd      Float           @default(0) @map("pending_usd")
+  payoutWallet    String          @map("payout_wallet")
+  payoutEmail     String?         @map("payout_email")
+  status          AffiliateStatus @default(PENDING)
+  platform        String?         // podcast, youtube, twitter, etc.
+  audienceSize    Int?            @map("audience_size")
+  applicationNote String?         @map("application_note")
+  approvedAt      DateTime?       @map("approved_at")
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  user            User            @relation(fields: [userId], references: [id])
+  referrals       Referral[]
+  payouts         AffiliatePayout[]
+
+  @@map("affiliates")
+}
+
+model Referral {
+  id             String   @id @default(cuid())
+  affiliateId    String   @map("affiliate_id")
+  referredUserId String   @map("referred_user_id")
+  purchaseAmount Float?   @map("purchase_amount")
+  commissionUsd  Float?   @map("commission_usd")
+  isPaid         Boolean  @default(false) @map("is_paid")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  affiliate      Affiliate @relation(fields: [affiliateId], references: [id])
+  referredUser   User      @relation("ReferredUser", fields: [referredUserId], references: [id])
+  referringUser  User?     @relation("ReferralUser", fields: [affiliateId], references: [id])
+
+  @@map("referrals")
+}
+
+model AffiliatePayout {
+  id          String      @id @default(cuid())
+  affiliateId String      @map("affiliate_id")
+  amountUsd   Float       @map("amount_usd")
+  status      PayoutStatus @default(PENDING)
+  method      String      // eth, stripe, etc.
+  txHash      String?     @map("tx_hash")
+  paidAt      DateTime?   @map("paid_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  affiliate   Affiliate   @relation(fields: [affiliateId], references: [id])
+
+  @@map("affiliate_payouts")
+}
+
+// ─────────────────────────────────────────
+// DROP
+// ─────────────────────────────────────────
+
+model Drop {
+  id           String     @id @default(cuid())
+  seriesNumber Int        @unique @map("series_number")
+  name         String
+  description  String?
+  nftCount     Int        @map("nft_count")
+  releaseDate  DateTime   @map("release_date")
+  priceEth     Float      @map("price_eth")
+  priceUsd     Float?     @map("price_usd")
+  status       DropStatus @default(UPCOMING)
+  imageUrl     String?    @map("image_url")
+  contractAddress String? @map("contract_address")
+  mintedCount  Int        @default(0) @map("minted_count")
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  notifications DropNotification[]
+
+  @@map("drops")
+}
+
+model DropNotification {
+  id        String   @id @default(cuid())
+  dropId    String   @map("drop_id")
+  email     String
+  wallet    String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  drop      Drop     @relation(fields: [dropId], references: [id])
+
+  @@unique([dropId, email])
+  @@map("drop_notifications")
+}
+
+// ─────────────────────────────────────────
+// MEMBER OFFER
+// ─────────────────────────────────────────
+
+model MemberOffer {
+  id              String   @id @default(cuid())
+  memberWallet    String   @map("member_wallet")
+  businessName    String   @map("business_name")
+  offerTitle      String   @map("offer_title")
+  description     String
+  category        String   @default("GENERAL")
+  discountPercent Float?   @map("discount_percent")
+  validForText    String?  @map("valid_for_text")
+  expiryDate      DateTime? @map("expiry_date")
+  contactEmail    String?  @map("contact_email")
+  externalUrl     String?  @map("external_url")
+  imageUrl        String?  @map("image_url")
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  member          User     @relation(fields: [memberWallet], references: [walletAddress])
+
+  @@map("member_offers")
+}
+
+// ─────────────────────────────────────────
+// NOTIFICATION
+// ─────────────────────────────────────────
+
+model Notification {
+  id         String   @id @default(cuid())
+  userId     String   @map("user_id")
+  type       String   // NEW_MESSAGE, DROP_ALERT, LISTING_SOLD, etc.
+  title      String
+  body       String?
+  link       String?
+  isRead     Boolean  @default(false) @map("is_read")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
+
+// ─────────────────────────────────────────
+// PLATFORM STATS (cached aggregates)
+// ─────────────────────────────────────────
+
+model PlatformStats {
+  id              Int      @id @default(1)
+  totalMembers    Int      @default(0) @map("total_members")
+  totalNFTs       Int      @default(3000) @map("total_nfts")
+  totalListings   Int      @default(0) @map("total_listings")
+  totalVolume     Float    @default(0) @map("total_volume")
+  floorPrice      Float    @default(0) @map("floor_price")
+  totalDiscussions Int     @default(0) @map("total_discussions")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("platform_stats")
+}
